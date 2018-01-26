@@ -1,0 +1,18 @@
+how to build firmware:
+	./scripts/feeds update -a
+	./scripts/feeds install -f -a -p juci
+	./scripts/feeds install -a
+	cp jalapeno_juci_config .config
+	make oldconfig
+	make
+update fw:
+	scp bin/targets/ipq806x/generic/lede-ipq806x-Jalapeno-squashfs-nand-sysupgrade.tar root@<device_ip>:/tmp/
+	ssh root@<device_ip>
+	sysupgrade /tmp/lede-ipq806x-Jalapeno-squashfs-nand-sysupgrade.tar
+after fw udpate need to set user password:
+	ssh root@<device_ip>
+	orangectl passwd admin admin123
+clean project:
+	./scripts/feeds uninstall -a
+	./scripts/feeds clean
+	make clean
